@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Search</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .search-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    input[type="text"] {
+        padding: 10px;
+        width: 60%;
+        margin-right: 10px;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .product-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .product-item {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    /* Responsive Design */
+    @media only screen and (max-width: 749px) {
+        input[type="text"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+        }
+    }
+
+    @media only screen and (min-width: 750px) and (max-width: 949px) {
+        input[type="text"] {
+            width: 70%;
+        }
+        button {
+            width: 28%;
+        }
+    }
+
+    @media only screen and (min-width: 950px) {
+        input[type="text"] {
+            width: 50%;
+        }
+        button {
+            width: 20%;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Enter product title...">
+        <button onclick="searchProducts()">Search</button>
+    </div>
+    <ul class="product-list" id="productList"></ul>
+</div>
+
+<script>
+    function searchProducts() {
+        const searchTerm = document.getElementById("searchInput").value;
+        fetch(https://products-api-2ttf.onrender.com/API/products?title=${searchTerm})
+        .then(response => response.json())
+        .then(data => displayProducts(data))
+        .catch(error => console.error('Error:', error));
+    }
+
+    function displayProducts(products) {
+        const productList = document.getElementById("productList");
+        productList.innerHTML = ""; // Clear previous results
+        products.forEach(product => {
+            const listItem = document.createElement("li");
+            listItem.classList.add("product-item");
+            listItem.textContent = ${product.title} - ${product.price};
+            productList.appendChild(listItem);
+        });
+    }
+</script>
+
+</body>
+</html>
